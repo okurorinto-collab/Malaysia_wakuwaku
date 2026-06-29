@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Malaysia Trip 2026</title>
+
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -45,10 +46,11 @@ main{max-width:600px;margin:0 auto;padding:16px 12px 80px}
 
 /* DAY HEADER */
 .day-section{margin-bottom:40px}
-.day-header{display:flex;align-items:center;gap:10px;padding:24px 0 14px;margin-bottom:4px}
-.day-badge{font-size:10px;font-weight:700;letter-spacing:.12em;background:var(--red);color:#fff;padding:4px 12px;border-radius:20px}
-.day-title{font-family:'Playfair Display',serif;font-size:16px;color:var(--text);flex:1}
-.day-date{font-size:12px;color:var(--muted);white-space:nowrap}
+.day-header{display:flex;align-items:flex-start;gap:14px;padding:24px 0 14px;margin-bottom:4px}
+.day-badge{font-size:10px;font-weight:700;letter-spacing:.12em;background:var(--red);color:#fff;padding:4px 12px;border-radius:20px;flex-none;margin-top:3px}
+.day-header-text{}
+.day-date{font-family:'Playfair Display',serif;font-size:22px;color:var(--text);line-height:1.2}
+.day-title{font-size:12px;color:var(--muted);margin-top:3px}
 
 /* EVENT CARD */
 .event-card{background:var(--card);border-radius:14px;overflow:hidden;margin-bottom:8px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
@@ -98,7 +100,7 @@ footer{text-align:center;padding:24px 16px;font-size:11px;color:var(--light)}
 
 <header class="trip-header">
   <div class="header-label">Travel Itinerary</div>
-  <div class="header-title">Malaysia</div>
+  <div class="header-title">Malaysia Trip 2026</div>
   <div class="header-sub">Aug 20 – Aug 24 · Kuala Lumpur · 3泊4日</div>
 </header>
 
@@ -134,8 +136,10 @@ footer{text-align:center;padding:24px 16px;font-size:11px;color:var(--light)}
 <section class="day-section" id="d1">
   <div class="day-header">
     <span class="day-badge">DAY 1</span>
-    <span class="day-title">バトゥ洞窟 → 市内の自然 → 夜景ハント</span>
-    <span class="day-date">8/21 金</span>
+    <div class="day-header-text">
+      <div class="day-date">8月21日（金）</div>
+      <div class="day-title">バトゥ洞窟 · 市内の自然 · 夜景ハント</div>
+    </div>
   </div>
 
   <div class="event-card">
@@ -258,8 +262,10 @@ footer{text-align:center;padding:24px 16px;font-size:11px;color:var(--light)}
 <section class="day-section" id="d2">
   <div class="day-header">
     <span class="day-badge">DAY 2</span>
-    <span class="day-title">チャイナタウン → 夜のランタン天后宮</span>
-    <span class="day-date">8/22 土</span>
+    <div class="day-header-text">
+      <div class="day-date">8月22日（土）</div>
+      <div class="day-title">チャイナタウン · 夜のランタン天后宮</div>
+    </div>
   </div>
 
   <div class="event-card">
@@ -366,8 +372,10 @@ footer{text-align:center;padding:24px 16px;font-size:11px;color:var(--light)}
 <section class="day-section" id="d3">
   <div class="day-header">
     <span class="day-badge">DAY 3</span>
-    <span class="day-title">山上の地獄寺院 → 巨大ブルーモスク</span>
-    <span class="day-date">8/23 日</span>
+    <div class="day-header-text">
+      <div class="day-date">8月23日（日）</div>
+      <div class="day-title">山上の地獄寺院 · 巨大ブルーモスク</div>
+    </div>
   </div>
 
   <div class="section-warn">終日Grab または貸切チャーター車での移動を推奨。移動距離が長い日なので早起き必須。</div>
@@ -435,8 +443,10 @@ footer{text-align:center;padding:24px 16px;font-size:11px;color:var(--light)}
 <section class="day-section" id="d4">
   <div class="day-header">
     <span class="day-badge">DAY 4</span>
-    <span class="day-title">帰国日</span>
-    <span class="day-date">8/24 月</span>
+    <div class="day-header-text">
+      <div class="day-date">8月24日（月）</div>
+      <div class="day-title">帰国日</div>
+    </div>
   </div>
 
   <div class="section-warn">荷造りは前夜に済ませておくこと。空港まで余裕を持って出発。</div>

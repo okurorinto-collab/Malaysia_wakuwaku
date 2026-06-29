@@ -1,575 +1,410 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🇲🇾 マレーシア わくわく旅程 2026</title>
-  <style>
-    :root {
-      --red: #dc2626;
-      --red-light: #fef2f2;
-      --red-mid: #fca5a5;
-      --red-dark: #991b1b;
-      --red-btn: #ef4444;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Meiryo', sans-serif;
-      background: #f9f9f9;
-      color: #222;
-      line-height: 1.7;
-    }
-
-    header {
-      background: linear-gradient(135deg, var(--red-dark) 0%, var(--red) 60%, #f87171 100%);
-      color: #fff;
-      text-align: center;
-      padding: 48px 20px 36px;
-    }
-    header .flag { font-size: 56px; }
-    header h1 { font-size: 2rem; font-weight: 700; margin: 8px 0 4px; letter-spacing: 0.05em; }
-    header p { font-size: 1rem; opacity: 0.9; }
-
-    /* フライト情報 */
-    .flight-box {
-      max-width: 720px;
-      margin: 28px auto;
-      background: #fff;
-      border-left: 6px solid var(--red);
-      border-radius: 10px;
-      padding: 20px 24px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.07);
-    }
-    .flight-box h2 { font-size: 1rem; color: var(--red-dark); margin-bottom: 12px; font-weight: 700; }
-    .flight-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 8px 0;
-      border-bottom: 1px solid #f3f3f3;
-    }
-    .flight-row:last-child { border-bottom: none; }
-    .flight-row .label { font-size: 0.78rem; color: #888; min-width: 36px; }
-    .flight-row .time { font-size: 1.1rem; font-weight: 700; color: #222; }
-    .flight-row .arrow { color: var(--red); font-size: 1.2rem; }
-    .flight-row .route { font-size: 0.9rem; color: #555; }
-
-    /* タブナビ */
-    nav.day-nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: #fff;
-      border-bottom: 2px solid var(--red-mid);
-      display: flex;
-      justify-content: center;
-      gap: 4px;
-      padding: 8px 12px;
-      overflow-x: auto;
-      flex-wrap: nowrap;
-    }
-    nav.day-nav a {
-      display: inline-block;
-      padding: 6px 14px;
-      border-radius: 20px;
-      background: var(--red-light);
-      color: var(--red-dark);
-      text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: 600;
-      white-space: nowrap;
-      transition: all 0.2s;
-    }
-    nav.day-nav a:hover {
-      background: var(--red);
-      color: #fff;
-    }
-
-    /* メインコンテンツ */
-    main { max-width: 720px; margin: 0 auto; padding: 20px 16px 60px; }
-
-    /* Day セクション */
-    .day-section { margin-bottom: 48px; }
-    .day-header {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 20px;
-      padding-bottom: 12px;
-      border-bottom: 3px solid var(--red);
-    }
-    .day-badge {
-      background: var(--red);
-      color: #fff;
-      font-weight: 800;
-      font-size: 0.9rem;
-      padding: 6px 14px;
-      border-radius: 20px;
-      letter-spacing: 0.05em;
-    }
-    .day-title {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: #222;
-    }
-    .day-date {
-      font-size: 0.85rem;
-      color: #888;
-      margin-left: auto;
-    }
-
-    /* タイムラインアイテム */
-    .timeline { position: relative; padding-left: 28px; }
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 10px;
-      top: 0;
-      bottom: 0;
-      width: 2px;
-      background: linear-gradient(to bottom, var(--red-mid), #fecaca);
-    }
-
-    .tl-item {
-      position: relative;
-      margin-bottom: 20px;
-    }
-    .tl-item::before {
-      content: '';
-      position: absolute;
-      left: -22px;
-      top: 7px;
-      width: 12px;
-      height: 12px;
-      background: var(--red);
-      border-radius: 50%;
-      border: 2px solid #fff;
-      box-shadow: 0 0 0 2px var(--red-mid);
-    }
-
-    .tl-item .time {
-      font-size: 0.8rem;
-      color: var(--red-dark);
-      font-weight: 700;
-      margin-bottom: 2px;
-    }
-    .tl-item .spot-name {
-      font-size: 1rem;
-      font-weight: 700;
-      color: #111;
-    }
-    .tl-item .spot-name .emoji { margin-right: 4px; }
-    .tl-item .priority {
-      display: inline-block;
-      font-size: 0.72rem;
-      background: var(--red-light);
-      color: var(--red-dark);
-      border: 1px solid var(--red-mid);
-      border-radius: 10px;
-      padding: 1px 8px;
-      margin-left: 6px;
-      vertical-align: middle;
-    }
-    .tl-item .note {
-      font-size: 0.82rem;
-      color: #666;
-      margin-top: 4px;
-      padding-left: 4px;
-      border-left: 2px solid var(--red-mid);
-      margin-left: 2px;
-    }
-
-    .tip-box {
-      background: var(--red-light);
-      border: 1px solid var(--red-mid);
-      border-radius: 8px;
-      padding: 10px 14px;
-      font-size: 0.82rem;
-      color: #7f1d1d;
-      margin-top: 6px;
-    }
-
-    /* ボタン */
-    .btn-group { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 4px 12px;
-      border-radius: 14px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
-      transition: all 0.15s;
-    }
-    .btn-map {
-      background: var(--red);
-      color: #fff;
-    }
-    .btn-map:hover { background: var(--red-dark); }
-    .btn-copy {
-      background: #fff;
-      color: var(--red-dark);
-      border: 1px solid var(--red-mid);
-    }
-    .btn-copy:hover { background: var(--red-light); }
-
-    /* 移動ブロック */
-    .transit {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.82rem;
-      color: #888;
-      margin: 8px 0 12px 0;
-    }
-    .transit::before { content: '↓'; color: var(--red-mid); }
-
-    /* フッター */
-    footer {
-      text-align: center;
-      padding: 24px;
-      font-size: 0.8rem;
-      color: #aaa;
-    }
-
-    /* ホテル情報 */
-    .hotel-box {
-      background: #fff;
-      border: 1px solid #e5e5e5;
-      border-radius: 10px;
-      padding: 14px 18px;
-      margin-bottom: 28px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-    .hotel-box .icon { font-size: 2rem; }
-    .hotel-box .info .name { font-weight: 700; font-size: 1rem; }
-    .hotel-box .info .area { font-size: 0.82rem; color: #888; }
-
-    @media (max-width: 500px) {
-      header h1 { font-size: 1.4rem; }
-      .day-title { font-size: 1rem; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Malaysia Trip 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#fafafa;--card:#ffffff;--text:#0d1b2a;--muted:#4a5568;--light:#9aa5b4;--border:#e2e8f0;
+  --red:#c0392b;--red-dark:#922b21;--red-light:#fdf2f1;--red-mid:#e9a09a;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;font-size:15px}
+.trip-header{background:#0d1b2a;color:#fff;padding:28px 24px 24px;text-align:left;position:relative;overflow:hidden}
+.trip-header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 60% 30%, rgba(192,57,43,.25) 0%, transparent 65%);pointer-events:none}
+.header-label{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--red-mid);font-weight:600;margin-bottom:16px}
+.header-title{font-family:'Playfair Display',serif;font-size:clamp(28px,6vw,42px);line-height:1;color:#fff;margin-bottom:4px}
+.header-year{font-size:13px;letter-spacing:.35em;color:#9aa5b4;margin-bottom:20px}
+.header-divider{height:1px;background:rgba(255,255,255,.1);max-width:320px;margin:20px auto}
+.header-meta{font-size:13px;color:#9aa5b4;letter-spacing:.04em}
+.header-names{font-size:15px;color:#fff;font-weight:500;margin-bottom:4px}
+.date-nav{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--border);display:flex;overflow-x:auto;scrollbar-width:none}
+.date-nav::-webkit-scrollbar{display:none}
+.date-nav a{flex:none;padding:14px 20px;font-size:13px;font-weight:600;color:var(--muted);text-decoration:none;border-bottom:2px solid transparent;white-space:nowrap;transition:all .2s}
+.date-nav a:hover{color:var(--red);border-bottom-color:var(--red-mid)}
+main{max-width:640px;margin:0 auto;padding:0 16px 80px}
+.flight-box{background:#0d1b2a;border-radius:16px;padding:24px;margin:28px 0}
+.flight-box-title{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--red-mid);font-weight:600;margin-bottom:16px}
+.flight-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.07)}
+.flight-row:last-child{border-bottom:none}
+.flight-tag{font-size:10px;font-weight:600;letter-spacing:.06em;background:rgba(192,57,43,.2);color:var(--red-mid);padding:2px 8px;border-radius:20px;white-space:nowrap}
+.flight-route{font-size:14px;font-weight:600;color:#fff;flex:1}
+.flight-time{font-size:13px;color:#9aa5b4}
+.hotel-card{background:var(--red-light);border:1px solid var(--red-mid);border-radius:12px;padding:18px 20px;margin:20px 0 32px}
+.hotel-name{font-size:15px;font-weight:600;color:var(--red-dark);margin-bottom:4px}
+.hotel-area{font-size:13px;color:var(--muted)}
+.day-section{margin-bottom:52px}
+.day-header{display:flex;align-items:baseline;gap:14px;padding:32px 0 18px;border-bottom:1px solid var(--border);margin-bottom:24px}
+.day-badge{font-size:11px;font-weight:600;letter-spacing:.12em;background:var(--red);color:#fff;padding:4px 12px;border-radius:20px;white-space:nowrap}
+.day-date{font-size:13px;color:var(--muted)}
+.day-title{font-family:'Playfair Display',serif;font-size:18px;color:var(--text);flex:1}
+.event-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin-bottom:12px}
+.event-time{font-size:12px;font-weight:600;color:var(--red);letter-spacing:.04em;margin-bottom:6px}
+.event-name{font-size:16px;font-weight:600;color:var(--text);margin-bottom:6px}
+.event-desc{font-size:13px;color:var(--muted);margin-bottom:10px;line-height:1.7}
+.event-tag{display:inline-flex;align-items:center;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;margin-right:6px;margin-bottom:8px}
+.tag-spot{background:#eef7f1;color:#1a6b3c}
+.tag-food{background:#fff4eb;color:#b45309}
+.tag-transit{background:#f1f3f5;color:#4a5568}
+.tag-hotel{background:var(--red-light);color:var(--red-dark)}
+.tag-priority{background:#fef3c7;color:#92400e}
+.tag-flight{background:#eff6ff;color:#1d4ed8}
+.tag-shop{background:#f5f3ff;color:#6d28d9}
+.tag-night{background:#1a1a2e;color:#a5b4fc}
+.tip{background:#fffbea;border-left:3px solid #f59e0b;border-radius:0 8px 8px 0;padding:10px 14px;margin:10px 0;font-size:12px;color:#78350f;line-height:1.6}
+.warn{background:#fff5f5;border-left:3px solid var(--red);border-radius:0 8px 8px 0;padding:10px 14px;margin:10px 0;font-size:12px;color:var(--red-dark);line-height:1.6}
+.map-btn{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;background:#fff;border:1px solid var(--border);color:var(--text);padding:6px 14px;border-radius:8px;cursor:pointer;text-decoration:none;transition:all .15s;margin-top:6px;margin-right:6px}
+.map-btn:hover{background:var(--red-light);border-color:var(--red-mid);color:var(--red-dark)}
+.map-btn svg{width:13px;height:13px;flex-none}
+.transit{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--light);padding:6px 20px;margin:4px 0}
+.transit-line{flex:1;height:1px;background:var(--border)}
+.flight-detail{display:grid;grid-template-columns:1fr 1fr;background:#f8fafc;border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-top:8px}
+.fd-col{padding:14px 16px}
+.fd-col+.fd-col{border-left:1px solid var(--border)}
+.fd-label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--light);margin-bottom:4px}
+.fd-route{font-size:14px;font-weight:600;color:var(--text)}
+.fd-time{font-size:13px;color:var(--muted);margin-top:2px}
+footer{text-align:center;padding:32px 16px;font-size:12px;color:var(--light)}
+</style>
 </head>
 <body>
 
-<header>
-  <div class="flag">🇲🇾</div>
-  <h1>マレーシア わくわく旅行 2026</h1>
-  <p>クアラルンプール 3泊4日 ｜ 8月20日〜24日</p>
+<header class="trip-header">
+  <div class="header-label">Travel Itinerary</div>
+  <div class="header-title">Malaysia</div>
+  <div class="header-year">2 0 2 6</div>
+  <div class="header-divider"></div>
+  <div class="header-meta">Aug 20 – Aug 24 · Kuala Lumpur · 3泊4日</div>
 </header>
 
-<!-- フライト情報 -->
-<div class="flight-box">
-  <h2>✈️ フライトスケジュール</h2>
-  <div class="flight-row">
-    <span class="label">往路</span>
-    <span class="time">23:50</span>
-    <span class="arrow">→</span>
-    <span class="route">羽田（HND）→ クアラルンプール（KLIA）<strong>翌06:15着</strong></span>
-  </div>
-  <div class="flight-row">
-    <span class="label">往路</span>
-    <span class="time" style="font-size:0.85rem; color:#666">8月20日(木)</span>
-    <span class="arrow">→</span>
-    <span class="route" style="font-size:0.82rem; color:#666">出発日：出発前夜！忘れ物チェック🔍</span>
-  </div>
-  <div class="flight-row" style="margin-top:4px">
-    <span class="label">復路</span>
-    <span class="time">14:10</span>
-    <span class="arrow">→</span>
-    <span class="route">クアラルンプール（KLIA）→ 羽田（HND）<strong>22:35着</strong></span>
-  </div>
-  <div class="flight-row">
-    <span class="label">復路</span>
-    <span class="time" style="font-size:0.85rem; color:#666">8月24日(月)</span>
-    <span class="arrow"></span>
-    <span class="route" style="font-size:0.82rem; color:#666">最終日・帰国日</span>
-  </div>
-</div>
-
-<!-- ホテル -->
-<div style="max-width:720px; margin: 0 auto 0; padding: 0 16px;">
-  <div class="hotel-box">
-    <div class="icon">🏨</div>
-    <div class="info">
-      <div class="name">ブキッ・ビンタンエリア（推奨）</div>
-      <div class="area">アロー通り・Wet Deckへのアクセス抜群。滞在の拠点に最適。</div>
-    </div>
-  </div>
-</div>
-
-<!-- ナビゲーション -->
-<nav class="day-nav">
-  <a href="#d1">8/21 Day 1</a>
-  <a href="#d2">8/22 Day 2</a>
-  <a href="#d3">8/23 Day 3</a>
-  <a href="#d4">8/24 Day 4</a>
+<nav class="date-nav">
+  <a href="#d1">8/21 金</a>
+  <a href="#d2">8/22 土</a>
+  <a href="#d3">8/23 日</a>
+  <a href="#d4">8/24 月</a>
 </nav>
 
 <main>
 
-  <!-- ===== Day 1 ===== -->
-  <section class="day-section" id="d1">
-    <div class="day-header">
-      <span class="day-badge">Day 1</span>
-      <span class="day-title">🦇 バトゥ洞窟 → 市内自然 → 夜景ハント</span>
-      <span class="day-date">8月21日（金）</span>
+<div class="flight-box">
+  <div class="flight-box-title">Flight</div>
+  <div class="flight-row">
+    <span class="flight-tag">往路</span>
+    <span class="flight-route">HND → KUL</span>
+    <span class="flight-time">23:50 → 06:15<span style="font-size:11px;opacity:.6"> 翌</span></span>
+  </div>
+  <div class="flight-row">
+    <span class="flight-tag">復路</span>
+    <span class="flight-route">KUL → HND</span>
+    <span class="flight-time">14:10 → 22:35</span>
+  </div>
+</div>
+
+<div class="hotel-card">
+  <div class="hotel-name">ブキッ・ビンタンエリア（推奨）</div>
+  <div class="hotel-area">アロー通り・Wet Deckへ徒歩圏内。夜の移動が楽な絶好のロケーション。</div>
+</div>
+
+<!-- DAY 1 -->
+<section class="day-section" id="d1">
+  <div class="day-header">
+    <span class="day-badge">DAY 1</span>
+    <span class="day-title">バトゥ洞窟 → 市内の自然 → 夜景ハント</span>
+    <span class="day-date">8/21 金</span>
+  </div>
+
+  <div class="event-card">
+    <div class="event-time">06:15</div>
+    <div class="event-name">クアラルンプール国際空港（KLIA）着</div>
+    <div class="event-desc">入国手続き・荷物ピックアップ（〜07:30）</div>
+    <span class="event-tag tag-flight">到着</span>
+  </div>
+
+  <div class="transit"><div class="transit-line"></div>KLIA Express · 約30分<div class="transit-line"></div></div>
+
+  <div class="event-card">
+    <div class="event-time">07:30〜08:30</div>
+    <div class="event-name">KLIA Express → KL Sentral駅</div>
+    <div class="event-desc">市内へ移動。Grabでホテルへ直行し、荷物を預ける。チェックイン前でも荷物預かりOK。</div>
+    <span class="event-tag tag-transit">移動</span>
+  </div>
+
+  <div class="transit"><div class="transit-line"></div>Grab · 約15分<div class="transit-line"></div></div>
+
+  <div class="event-card">
+    <div class="event-time">09:45〜11:15</div>
+    <div class="event-name">バトゥ洞窟</div>
+    <div class="event-desc">ヒンドゥー教の聖地。272段の階段を登った先にある巨大な石灰岩洞窟。サルが出迎えてくれる。</div>
+    <span class="event-tag tag-spot">観光</span>
+    <span class="event-tag tag-priority">優先度激高</span>
+    <div class="tip">朝のうちが比較的涼しく、サルの動きも活発。初日の午前中がベスト。</div>
+    <br>
+    <a class="map-btn" href="https://maps.google.com/?q=Batu+Caves+Selangor" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      マップ
+    </a>
+  </div>
+
+  <div class="transit"><div class="transit-line"></div>Grab · ホテルへ戻り仮眠<div class="transit-line"></div></div>
+
+  <div class="event-card">
+    <div class="event-time">12:00〜14:30</div>
+    <div class="event-name">ホテルで休憩・仮眠</div>
+    <div class="event-desc">時差・睡眠不足対策。夜に備えてしっかり充電。</div>
+    <span class="event-tag tag-hotel">休憩</span>
+  </div>
+
+  <div class="transit"><div class="transit-line"></div>徒歩 or Grab<div class="transit-line"></div></div>
+
+  <div class="event-card">
+    <div class="event-time">15:00〜16:30</div>
+    <div class="event-name">KL フォレスト・エコ・パーク</div>
+    <div class="event-desc">ビル群のど真ん中にある熱帯雨林。キャノピーウォーク（吊り橋）から空中散歩を楽しめる。</div>
+    <span class="event-tag tag-spot">観光</span>
+    <a class="map-btn" href="https://maps.google.com/?q=KL+Forest+Eco+Park" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      マップ
+    </a>
+  </div>
+
+  <div class="transit"><div class="transit-line"></div>徒歩 · 約10分<div class="transit-line"></div></div>
+
+  <div class="event-card">
+    <div class="event-time">17:00〜18:00</div>
+    <div class="event-name">KLCC公園</div>
+    <div class="event-desc">ペトロナス・ツインタワーを見上げる絶景スポット。黄昏時のライトアップが最高。</div>
+    <span class="event-tag tag-spot">観光</span>
+    <a class="map-btn" href="https://maps.google.com/?q=KLCC+Park+Kuala+Lumpur" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      マップ
+    </a>
+  </div>
+
+  <div class="transit"><div class="transit-line"></div>徒歩 · 約10分<div class="transit-line"></div></div>
+
+  <div class="event-card">
+    <div class="event-time">18:30〜20:30</div>
+    <div class="event-name">Jalan Alor Food Street（アロー市場）</div>
+    <div class="event-desc">マレーシア最大の屋台街。焼き魚・エビ・フルーツ・ナシゴレンなど何でもある。現金推奨。</div>
+    <span class="event-tag tag-food">夕食</span>
+    <span class="event-tag tag-priority">優先度①</span>
+    <a class="map-btn" href="https://maps.google.com/?q=Jalan+Alor+Kuala+Lumpur" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      マップ
+    </a>
+  </div>
+
+  <div class="transit"><div class="transit-line"></div>徒歩 · 約5分<div class="transit-line"></div></div>
+
+  <div class="event-card">
+    <div class="event-time">21:00〜23:00</div>
+    <div class="event-name">Wet Deck（夜景バー）</div>
+    <div class="event-desc">Wホテル屋上プール付きバー。目の前にツインタワーが輝く最高の夜景スポット。</div>
+    <span class="event-tag tag-night">夜景</span>
+    <span class="event-tag tag-priority">優先度②</span>
+    <div class="warn">ドレスコードあり（スマートカジュアル）。サンダル・ショートパンツは入場不可。</div>
+    <a class="map-btn" href="https://maps.google.com/?q=Wet+Deck+W+Hotel+Kuala+Lumpur" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      マップ
+    </a>
+  </div>
+</section>
+
+<!-- DAY 2 -->
+<section class="day-section" id="d2">
+  <div class="day-header">
+    <span class="day-badge">DAY 2</span>
+    <span class="day-title">チャイナタウン → 夜のランタン天后宮</span>
+    <span class="day-date">8/22 土</span>
+  </div>
+
+  <div class="event-card">
+    <div class="event-time">09:30〜10:30</div>
+    <div class="event-name">スリ マハ マリアマン寺院</div>
+    <div class="event-desc">ヒンドゥー教の圧倒的な彫刻群が並ぶゴープラム（塔門）が目印。チャイナタウンの入口にあり、観光のスタートにぴったり。</div>
+    <span class="event-tag tag-spot">観光</span>
+    <a class="map-btn" href="https://maps.google.com/?q=Sri+Mahamariamman+Temple+Kuala+Lumpur" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      マップ
+    </a>
+  </div>
+
+  <div class="transit"><div class="transit-line"></div>徒歩 · 約5分<div class="transit-line"></div></div>
+
+  <div class="event-card">
+    <div class="event-time">10:30〜12:00</div>
+    <div class="event-name">セントラル・マーケット</div>
+    <div class="event-desc">バティック・工芸品・スパイス・雑貨がぎっしり。お土産探しはここで決まり。屋根付きなので雨でもOK。</div>
+    <span class="event-tag tag-shop">ショップ</span>
+    <a class="map-btn" href="https://maps.google.com/?q=Central+Market+Kuala+Lumpur" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      マップ
+    </a>
+  </div>
+
+  <div class="transit"><div class="transit-line"></div>徒歩 · 約3分<div class="transit-line"></div></div>
+
+  <div class="event-card">
+    <div class="event-time">12:00〜13:00</div>
+    <div class="event-name">Lorong Panggung（鬼仔巷）散策</div>
+    <div class="event-desc">リノベされた映えスポット。カラフルなウォールアートとレトロな建物が並ぶ路地。</div>
+    <span class="event-tag tag-spot">観光</span>
+    <a class="map-btn" href="https://maps.google.com/?q=Lorong+Panggung+Kuala+Lumpur" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      マップ
+    </a>
+  </div>
+
+  <div class="transit"><div class="transit-line"></div>Grab · 約10分<div class="transit-line"></div></div>
+
+  <div class="event-card">
+    <div class="event-time">13:00〜17:00</div>
+    <div class="event-name">ブキッ・ビンタン 自由散策・ショッピング</div>
+    <div class="event-desc">パビリオンKL等の巨大モールで涼みながら買い物。ローカルフードコートでランチも。</div>
+    <span class="event-tag tag-shop">ショッピング</span>
+    <a class="map-btn" href="https://maps.google.com/?q=Pavilion+KL+Bukit+Bintang" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      パビリオンKL
+    </a>
+  </div>
+
+  <div class="transit"><div class="transit-line"></div>Grab · 約15分<div class="transit-line"></div></div>
+
+  <div class="event-card">
+    <div class="event-time">17:30〜19:30</div>
+    <div class="event-name">天后宮（Thean Hou Temple）</div>
+    <div class="event-desc">6層建ての荘厳な中国寺院。夕暮れから夜にかけて無数に灯る赤ランタンのライトアップが圧巻。</div>
+    <span class="event-tag tag-spot">観光</span>
+    <span class="event-tag tag-priority">優先度激高</span>
+    <div class="tip">夕方〜夜がベスト。赤いランタンが無数に灯り、幻想的な雰囲気に。</div>
+    <a class="map-btn" href="https://maps.google.com/?q=Thean+Hou+Temple+Kuala+Lumpur" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      マップ
+    </a>
+  </div>
+</section>
+
+<!-- DAY 3 -->
+<section class="day-section" id="d3">
+  <div class="day-header">
+    <span class="day-badge">DAY 3</span>
+    <span class="day-title">山上の地獄寺院 → 巨大ブルーモスク</span>
+    <span class="day-date">8/23 日</span>
+  </div>
+
+  <div class="warn">終日Grab または貸切チャーター車での移動を推奨。移動距離が長い日なので早起き必須。</div>
+
+  <div class="event-card" style="margin-top:12px">
+    <div class="event-time">07:30</div>
+    <div class="event-name">ホテル出発</div>
+    <div class="event-desc">ゲンティン高原方面へ出発。Grabまたは貸切チャーター車を事前に手配しておくと安心。</div>
+    <span class="event-tag tag-transit">移動</span>
+  </div>
+
+  <div class="transit"><div class="transit-line"></div>Grab · 約1時間<div class="transit-line"></div></div>
+
+  <div class="event-card">
+    <div class="event-time">08:30〜11:00</div>
+    <div class="event-name">チン・スウィー洞窟寺院（清水岩廟）</div>
+    <div class="event-desc">ゲンティン高原。ロープウェイで登る標高約1800mの山の上にある寺院。リアルな地獄ジオラマ（十殿閻羅）が圧巻。</div>
+    <span class="event-tag tag-spot">観光</span>
+    <div class="tip">市内より約10℃涼しい。上着を忘れずに。ロープウェイは往復券がお得。</div>
+    <a class="map-btn" href="https://maps.google.com/?q=Chin+Swee+Caves+Temple+Genting+Highlands" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      マップ
+    </a>
+  </div>
+
+  <div class="transit"><div class="transit-line"></div>Grab · シャーアラムへ約1.5時間<div class="transit-line"></div></div>
+
+  <div class="event-card">
+    <div class="event-time">13:30〜15:00</div>
+    <div class="event-name">スルタン・サラフディン・アブドゥル・アジズ・モスク（ブルーモスク）</div>
+    <div class="event-desc">マレーシア最大級のモスク。青いドームが空に映える絶景。非イスラム教徒も観光可能。</div>
+    <span class="event-tag tag-spot">観光</span>
+    <span class="event-tag tag-priority">優先度③</span>
+    <div class="warn">肌の露出は避けること。女性はスカーフ着用が必要（入口で無料貸し出しあり）。</div>
+    <a class="map-btn" href="https://maps.google.com/?q=Sultan+Salahuddin+Abdul+Aziz+Mosque+Shah+Alam" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      マップ
+    </a>
+  </div>
+
+  <div class="transit"><div class="transit-line"></div>Grab · 市内へ約30分<div class="transit-line"></div></div>
+
+  <div class="event-card">
+    <div class="event-time">15:30〜17:30</div>
+    <div class="event-name">ペルダナ植物園（Laman Perdana）</div>
+    <div class="event-desc">市内に戻り、夕方の涼しい時間帯にSFチックな黄色い大屋根「Laman Perdana」で写真撮影。</div>
+    <span class="event-tag tag-spot">観光</span>
+    <a class="map-btn" href="https://maps.google.com/?q=Perdana+Botanical+Garden+Kuala+Lumpur" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      マップ
+    </a>
+  </div>
+</section>
+
+<!-- DAY 4 -->
+<section class="day-section" id="d4">
+  <div class="day-header">
+    <span class="day-badge">DAY 4</span>
+    <span class="day-title">帰国日</span>
+    <span class="day-date">8/24 月</span>
+  </div>
+
+  <div class="warn">荷造りは前夜に済ませておくこと。空港まで余裕を持って出発。</div>
+
+  <div class="event-card" style="margin-top:12px">
+    <div class="event-time">帰国フライト</div>
+    <div class="event-name">KUL → HND</div>
+    <div class="flight-detail">
+      <div class="fd-col">
+        <div class="fd-label">出発</div>
+        <div class="fd-route">14:10</div>
+        <div class="fd-time">クアラルンプール（KLIA）</div>
+      </div>
+      <div class="fd-col">
+        <div class="fd-label">到着</div>
+        <div class="fd-route">22:35</div>
+        <div class="fd-time">羽田（HND）</div>
+      </div>
     </div>
+    <span class="event-tag tag-flight" style="margin-top:10px">帰国</span>
+  </div>
 
-    <div class="timeline">
+  <div class="event-card">
+    <div class="event-time">08:00</div>
+    <div class="event-name">ホテルチェックアウト</div>
+    <div class="event-desc">忘れ物チェック・お土産の荷物整理。チェックアウトは通常11:00まで。</div>
+    <span class="event-tag tag-hotel">ホテル</span>
+  </div>
 
-      <div class="tl-item">
-        <div class="time">06:15</div>
-        <div class="spot-name">✈️ クアラルンプール国際空港（KLIA）到着</div>
-        <div class="note">入国手続き・荷物ピックアップ（〜07:30）</div>
-      </div>
+  <div class="transit"><div class="transit-line"></div>KLIA Express / Grab · 約30〜45分<div class="transit-line"></div></div>
 
-      <div class="tl-item">
-        <div class="time">07:30〜08:30</div>
-        <div class="spot-name">🚄 KLIA Expressで市内へ</div>
-        <div class="note">KL Sentral駅着。Grabでホテルへ移動・荷物を預ける。</div>
-      </div>
+  <div class="event-card">
+    <div class="event-time">10:00頃</div>
+    <div class="event-name">クアラルンプール国際空港（KLIA）</div>
+    <div class="event-desc">チェックイン・出国審査。免税店でラストショッピング。KL空港は広いので時間に余裕を。</div>
+    <span class="event-tag tag-flight">空港</span>
+    <div class="tip">空港内でNasi Lemak（ナシレマ）をラストグルメに。ペトロナスやKLCCグッズも。</div>
+    <a class="map-btn" href="https://maps.google.com/?q=Kuala+Lumpur+International+Airport+KLIA" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      空港マップ
+    </a>
+  </div>
 
-      <div class="tl-item">
-        <div class="time">09:45〜11:15</div>
-        <div class="spot-name">
-          <span class="emoji">🦟</span>バトゥ洞窟
-          <span class="priority">★ 優先度激高</span>
-        </div>
-        <div class="tip-box">💡 朝のうちが比較的涼しく、サルの動きも活発。初日の午前中に配置するのがベスト！</div>
-        <div class="btn-group">
-          <a class="btn btn-map" href="https://maps.google.com/?q=Batu+Caves,+Selangor" target="_blank">🗺 マップ</a>
-        </div>
-      </div>
-
-      <div class="tl-item">
-        <div class="time">12:00〜14:30</div>
-        <div class="spot-name">🏨 ホテルへ戻り休憩・仮眠</div>
-        <div class="note">時差・睡眠不足対策。午後に備えてしっかり休む。</div>
-      </div>
-
-      <div class="tl-item">
-        <div class="time">15:00〜16:30</div>
-        <div class="spot-name"><span class="emoji">🌿</span>KL フォレスト・エコ・パーク</div>
-        <div class="note">ビル群の中にある吊り橋（キャノピーウォーク）を散策。</div>
-        <div class="btn-group">
-          <a class="btn btn-map" href="https://maps.google.com/?q=KL+Forest+Eco+Park" target="_blank">🗺 マップ</a>
-        </div>
-      </div>
-
-      <div class="tl-item">
-        <div class="time">17:00〜18:00</div>
-        <div class="spot-name"><span class="emoji">🏙</span>KLCC公園</div>
-        <div class="note">ペトロナス・ツインタワーを見上げる絶景スポット。黄昏時が最高。</div>
-        <div class="btn-group">
-          <a class="btn btn-map" href="https://maps.google.com/?q=KLCC+Park+Kuala+Lumpur" target="_blank">🗺 マップ</a>
-        </div>
-      </div>
-
-      <div class="tl-item">
-        <div class="time">18:30〜20:30</div>
-        <div class="spot-name">
-          <span class="emoji">🍢</span>Jalan Alor Food Street（アロー市場）
-          <span class="priority">★ 優先度①</span>
-        </div>
-        <div class="note">活気ある屋台街を散策。マレー料理・中華・果物なんでも揃う！</div>
-        <div class="btn-group">
-          <a class="btn btn-map" href="https://maps.google.com/?q=Jalan+Alor+Kuala+Lumpur" target="_blank">🗺 マップ</a>
-        </div>
-      </div>
-
-      <div class="tl-item">
-        <div class="time">21:00〜23:00</div>
-        <div class="spot-name">
-          <span class="emoji">🍹</span>Wet Deck（夜景バー）
-          <span class="priority">★ 優先度②</span>
-        </div>
-        <div class="note">Wホテル屋上。目の前にツインタワーが浮かぶ絶景スポット。ドレスコード注意！</div>
-        <div class="btn-group">
-          <a class="btn btn-map" href="https://maps.google.com/?q=Wet+Deck+W+Hotel+Kuala+Lumpur" target="_blank">🗺 マップ</a>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ===== Day 2 ===== -->
-  <section class="day-section" id="d2">
-    <div class="day-header">
-      <span class="day-badge">Day 2</span>
-      <span class="day-title">🏮 チャイナタウン → 夜のランタン天后宮</span>
-      <span class="day-date">8月22日（土）</span>
-    </div>
-
-    <div class="timeline">
-
-      <div class="tl-item">
-        <div class="time">09:30〜10:30</div>
-        <div class="spot-name"><span class="emoji">🛕</span>スリ マハ マリアマン寺院</div>
-        <div class="note">ヒンドゥー教の圧倒的な彫刻群を体感。カラフルなゴープラムは圧巻。</div>
-        <div class="btn-group">
-          <a class="btn btn-map" href="https://maps.google.com/?q=Sri+Mahamariamman+Temple+Kuala+Lumpur" target="_blank">🗺 マップ</a>
-        </div>
-      </div>
-
-      <div class="tl-item">
-        <div class="time">10:30〜12:00</div>
-        <div class="spot-name"><span class="emoji">🛍</span>セントラル・マーケット</div>
-        <div class="note">マレーシアのお土産ならここ。バティック・工芸品・スパイスが揃う。</div>
-        <div class="btn-group">
-          <a class="btn btn-map" href="https://maps.google.com/?q=Central+Market+Kuala+Lumpur" target="_blank">🗺 マップ</a>
-        </div>
-      </div>
-
-      <div class="tl-item">
-        <div class="time">12:00〜13:00</div>
-        <div class="spot-name"><span class="emoji">📸</span>Lorong Panggung（鬼仔巷）散策</div>
-        <div class="note">リノベされた映えの路地。ウォールアートとレトロな雰囲気が撮影スポットとして人気。</div>
-        <div class="btn-group">
-          <a class="btn btn-map" href="https://maps.google.com/?q=Lorong+Panggung+Kuala+Lumpur" target="_blank">🗺 マップ</a>
-        </div>
-      </div>
-
-      <div class="tl-item">
-        <div class="time">13:00〜17:00</div>
-        <div class="spot-name"><span class="emoji">🛒</span>ブキッ・ビンタン周辺で自由散策・ショッピング</div>
-        <div class="note">パビリオンKL等の巨大モールで涼みながらお買い物。ローカルフードも堪能しよう！</div>
-        <div class="btn-group">
-          <a class="btn btn-map" href="https://maps.google.com/?q=Pavilion+KL+Bukit+Bintang" target="_blank">🗺 マップ</a>
-        </div>
-      </div>
-
-      <div class="tl-item">
-        <div class="time">17:30〜19:30</div>
-        <div class="spot-name">
-          <span class="emoji">🏮</span>天后宮（Thean Hou Temple）
-          <span class="priority">★ 優先度激高</span>
-        </div>
-        <div class="tip-box">💡 夕暮れから夜にかけて無数に灯る赤ランタンのライトアップを狙う！夜景との組み合わせが最高。</div>
-        <div class="btn-group">
-          <a class="btn btn-map" href="https://maps.google.com/?q=Thean+Hou+Temple+Kuala+Lumpur" target="_blank">🗺 マップ</a>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ===== Day 3 ===== -->
-  <section class="day-section" id="d3">
-    <div class="day-header">
-      <span class="day-badge">Day 3</span>
-      <span class="day-title">⛰️ 山上の地獄寺院 → 巨大ブルーモスク</span>
-      <span class="day-date">8月23日（日）</span>
-    </div>
-
-    <div class="tip-box" style="margin-bottom: 20px;">
-      💡 終日Grab または貸切チャーター車での移動を推奨。移動距離が長い日なので早起き必須！
-    </div>
-
-    <div class="timeline">
-
-      <div class="tl-item">
-        <div class="time">07:30</div>
-        <div class="spot-name">🚗 ホテル出発</div>
-        <div class="note">ゲンティン高原方面へ出発。Grabまたは貸切チャーター車を事前に手配しておくと◎</div>
-      </div>
-
-      <div class="tl-item">
-        <div class="time">08:30〜11:00</div>
-        <div class="spot-name"><span class="emoji">🗻</span>チン・スウィー洞窟寺院（清水岩廟）</div>
-        <div class="note">ゲンティン高原。ロープウェイに乗り、涼しい山の上へ。リアルな地獄ジオラマ（十殿閻羅）が圧倒的。</div>
-        <div class="tip-box">💡 標高約1800m。市内より10℃ほど涼しく快適！上着を忘れずに。</div>
-        <div class="btn-group">
-          <a class="btn btn-map" href="https://maps.google.com/?q=Chin+Swee+Caves+Temple+Genting+Highlands" target="_blank">🗺 マップ</a>
-        </div>
-      </div>
-
-      <div class="tl-item">
-        <div class="time">11:00〜13:00</div>
-        <div class="spot-name">🚗 シャーアラム（モスク）方面へ移動</div>
-        <div class="note">長距離移動。車内で軽食を摂りながら移動するのがおすすめ。</div>
-      </div>
-
-      <div class="tl-item">
-        <div class="time">13:30〜15:00</div>
-        <div class="spot-name">
-          <span class="emoji">🕌</span>スルタン・サラフディン・アブドゥル・アジズ・モスク（ブルーモスク）
-          <span class="priority">★ 優先度③</span>
-        </div>
-        <div class="note">マレーシア最大級のモスク。青いドームが美しい。非イスラム教徒も観光可能（服装規定あり）。</div>
-        <div class="tip-box">💡 肌の露出は避けること。女性はスカーフ着用が必要（貸し出しあり）。</div>
-        <div class="btn-group">
-          <a class="btn btn-map" href="https://maps.google.com/?q=Sultan+Salahuddin+Abdul+Aziz+Mosque+Shah+Alam" target="_blank">🗺 マップ</a>
-        </div>
-      </div>
-
-      <div class="tl-item">
-        <div class="time">15:30〜17:30</div>
-        <div class="spot-name"><span class="emoji">🌳</span>ペルダナ植物園（Laman Perdana）</div>
-        <div class="note">市内に戻り、夕方の涼しい時間帯にSFチックな黄色い大屋根「Laman Perdana」で写真撮影！</div>
-        <div class="btn-group">
-          <a class="btn btn-map" href="https://maps.google.com/?q=Perdana+Botanical+Garden+Kuala+Lumpur" target="_blank">🗺 マップ</a>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ===== Day 4 ===== -->
-  <section class="day-section" id="d4">
-    <div class="day-header">
-      <span class="day-badge">Day 4</span>
-      <span class="day-title">✈️ チェックアウト → 帰国</span>
-      <span class="day-date">8月24日（月）</span>
-    </div>
-
-    <div class="timeline">
-
-      <div class="tl-item">
-        <div class="time">08:00</div>
-        <div class="spot-name">🏨 ホテルチェックアウト</div>
-        <div class="note">忘れ物チェックをしっかり。お土産の荷物整理も！</div>
-      </div>
-
-      <div class="tl-item">
-        <div class="time">09:00</div>
-        <div class="spot-name">🚄 空港へ出発</div>
-        <div class="note">KL Sentral駅からKLIA Expressが便利（約30分）。またはGrabで直接空港へ。</div>
-      </div>
-
-      <div class="tl-item">
-        <div class="time">10:00頃</div>
-        <div class="spot-name">✈️ クアラルンプール国際空港（KLIA）到着</div>
-        <div class="note">チェックイン・出国審査・ショッピングタイム。免税店でラストショッピング！</div>
-      </div>
-
-      <div class="tl-item">
-        <div class="time">14:10</div>
-        <div class="spot-name">✈️ クアラルンプール出発</div>
-      </div>
-
-      <div class="tl-item">
-        <div class="time" style="color:#333">22:35</div>
-        <div class="spot-name">🏠 羽田空港到着 — おかえり！</div>
-        <div class="note">最高の思い出と共に帰国。お疲れさまでした！</div>
-      </div>
-
-    </div>
-  </section>
+  <div class="event-card" style="background:#0d1b2a;border-color:#0d1b2a">
+    <div class="event-time" style="color:var(--red-mid)">22:35</div>
+    <div class="event-name" style="color:#fff">羽田空港 着 — おかえり</div>
+    <div class="event-desc" style="color:#9aa5b4">最高の思い出とお土産を持って無事帰国。お疲れさまでした。</div>
+  </div>
+</section>
 
 </main>
 
-<footer>
-  🇲🇾 Malaysia わくわく旅行 2026 ｜ Made with ❤️
-</footer>
+<footer>Malaysia わくわく旅行 2026</footer>
 
 </body>
 </html>

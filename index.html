@@ -138,6 +138,7 @@ footer{text-align:center;padding:24px 16px;font-size:11px;color:var(--light)}
   <a href="#d2">8/22 土</a>
   <a href="#d3">8/23 日</a>
   <a href="#d4">8/24 月</a>
+  <a href="#" id="guide-tab" onclick="toggleGuide(event)">観光ガイド</a>
 </nav>
 
 <main>
@@ -169,7 +170,7 @@ footer{text-align:center;padding:24px 16px;font-size:11px;color:var(--light)}
 </div>
 
 <!-- TRAVEL GUIDE -->
-<section class="guide" id="guide">
+<section class="guide" id="guide" style="display:none">
   <div class="guide-head">
     <div class="g-label">Before You Go</div>
     <h2>Malaysia Travel Guide</h2>
@@ -690,6 +691,21 @@ footer{text-align:center;padding:24px 16px;font-size:11px;color:var(--light)}
 </main>
 
 <footer>Malaysia わくわく旅行 2026</footer>
+
+<script>
+function setGuideVisible(on){
+  document.getElementById('guide').style.display = on ? '' : 'none';
+  document.querySelectorAll('.day-section, .flight-box, .hotel-card').forEach(function(el){
+    el.style.display = on ? 'none' : '';
+  });
+  document.querySelectorAll('.date-nav a').forEach(function(a){ a.classList.remove('active'); });
+  if(on){ document.getElementById('guide-tab').classList.add('active'); window.scrollTo(0,0); }
+}
+function toggleGuide(e){ e.preventDefault(); setGuideVisible(true); }
+document.querySelectorAll('.date-nav a:not(#guide-tab)').forEach(function(a){
+  a.addEventListener('click', function(){ setGuideVisible(false); this.classList.add('active'); });
+});
+</script>
 
 <a class="walica-btn" href="https://walica.jp/group/01KYECEHZ4PQ7Q851BKR9WK2A0" target="_blank">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>

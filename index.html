@@ -93,6 +93,33 @@ main{max-width:600px;margin:0 auto;padding:16px 12px 80px}
 /* WARN BOX */
 .section-warn{background:#fff5f5;border:1px solid var(--red-mid);border-radius:10px;padding:12px 14px;margin-bottom:12px;font-size:12px;color:var(--red-dark);line-height:1.6}
 
+/* GUIDE (magazine) */
+.guide{background:#fff;border-radius:16px;overflow:hidden;margin-bottom:24px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.guide-head{background:var(--red);color:#fff;padding:18px 20px 14px}
+.guide-head .g-label{font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:.85;font-weight:600}
+.guide-head h2{font-family:'Playfair Display',serif;font-size:24px;line-height:1.15;margin-top:2px}
+.guide-body{padding:18px 16px}
+.g-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.g-fact{background:var(--red-light);border-radius:10px;padding:12px}
+.g-fact .g-k{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--red-dark);font-weight:700;margin-bottom:3px}
+.g-fact .g-v{font-size:14px;font-weight:700;color:var(--text);line-height:1.35}
+.g-fact .g-s{font-size:11px;color:var(--muted);margin-top:1px}
+.g-sec-title{display:flex;align-items:center;gap:8px;font-family:'Playfair Display',serif;font-size:17px;color:var(--text);margin:20px 0 10px}
+.g-sec-title::after{content:'';flex:1;height:1px;background:var(--border)}
+.g-num{font-size:11px;font-weight:700;color:#fff;background:var(--red);width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex:none}
+.rate-table{width:100%;border-collapse:collapse;font-size:13px}
+.rate-table th{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--light);text-align:left;padding:6px 8px;border-bottom:1px solid var(--border)}
+.rate-table td{padding:8px;border-bottom:1px solid var(--border);font-weight:600}
+.rate-table td:last-child{text-align:right;color:var(--red-dark)}
+.rate-note{font-size:10px;color:var(--light);margin-top:6px}
+.g-tip-list{list-style:none}
+.g-tip-list li{display:flex;gap:10px;padding:9px 0;border-bottom:1px dashed var(--border);font-size:12.5px;color:var(--text);line-height:1.65}
+.g-tip-list li:last-child{border-bottom:none}
+.g-tip-list .ico{flex:none;width:22px;height:22px;border-radius:6px;background:var(--red-light);color:var(--red);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;margin-top:1px}
+.g-map{background:#0d1b2a;border-radius:12px;padding:6px;margin-top:4px}
+.g-map svg{width:100%;height:auto;display:block}
+.g-map-cap{font-size:10px;color:var(--light);text-align:center;padding:8px 4px 6px}
+
 footer{text-align:center;padding:24px 16px;font-size:11px;color:var(--light)}
 .walica-btn{position:fixed;bottom:20px;right:16px;z-index:100;display:inline-flex;align-items:center;gap:6px;background:var(--red);color:#fff;font-size:13px;font-weight:700;padding:10px 18px;border-radius:30px;text-decoration:none;box-shadow:0 4px 14px rgba(192,57,43,.4);transition:all .2s}
 .walica-btn:hover{background:var(--red-dark);box-shadow:0 6px 18px rgba(192,57,43,.5);transform:translateY(-1px)}
@@ -140,6 +167,88 @@ footer{text-align:center;padding:24px 16px;font-size:11px;color:var(--light)}
     </a>
   </div>
 </div>
+
+<!-- TRAVEL GUIDE -->
+<section class="guide" id="guide">
+  <div class="guide-head">
+    <div class="g-label">Before You Go</div>
+    <h2>Malaysia Travel Guide</h2>
+  </div>
+  <div class="guide-body">
+
+    <div class="g-grid">
+      <div class="g-fact"><div class="g-k">時差</div><div class="g-v">−1時間</div><div class="g-s">日本が正午ならKLは11時</div></div>
+      <div class="g-fact"><div class="g-k">通貨</div><div class="g-v">リンギット（RM）</div><div class="g-s">RM1 ≈ 35円</div></div>
+      <div class="g-fact"><div class="g-k">気候（8月）</div><div class="g-v">28〜33℃</div><div class="g-s">スコールに注意・折り畳み傘必携</div></div>
+      <div class="g-fact"><div class="g-k">電源プラグ</div><div class="g-v">BFタイプ</div><div class="g-s">変換アダプタ必要（電圧240V）</div></div>
+      <div class="g-fact"><div class="g-k">言語</div><div class="g-v">マレー語・英語</div><div class="g-s">観光地は英語でほぼOK</div></div>
+      <div class="g-fact"><div class="g-k">チップ</div><div class="g-v">不要</div><div class="g-s">サービス料込みが基本</div></div>
+    </div>
+
+    <div class="g-sec-title"><span class="g-num">¥</span>外貨ざっくり計算</div>
+    <table class="rate-table">
+      <tr><th>リンギット</th><th>使いどころ</th><th>日本円（目安）</th></tr>
+      <tr><td>RM5</td><td>屋台の麺・ドリンク</td><td>約175円</td></tr>
+      <tr><td>RM20</td><td>コピティアム朝食（2人）</td><td>約700円</td></tr>
+      <tr><td>RM50</td><td>屋台街でしっかり夕食</td><td>約1,750円</td></tr>
+      <tr><td>RM100</td><td>バーで乾杯・お土産</td><td>約3,500円</td></tr>
+    </table>
+    <div class="rate-note">※ RM1 ≈ 35円換算。「RMの値段 × 35」でだいたいの円がわかる。</div>
+
+    <div class="g-sec-title"><span class="g-num">!</span>注意ポイント</div>
+    <ul class="g-tip-list">
+      <li><span class="ico">水</span>水道水は飲まない。ミネラルウォーターを買う（RM1〜2）。氷は店によっては注意。</li>
+      <li><span class="ico">服</span>モスク・寺院では肌の露出NG。羽織れるものを1枚持ち歩くと安心。</li>
+      <li><span class="ico">猿</span>バトゥ洞窟のサルは食べ物・スマホを狙う。袋類は見せない、手に持たない。</li>
+      <li><span class="ico">車</span>移動はGrab一択。流しのタクシーはぼったくり率高め。アプリは日本でDLしておく。</li>
+      <li><span class="ico">金</span>屋台・市場は現金のみが多い。両替は市内の両替所がレート良し（空港は最小限に）。</li>
+      <li><span class="ico">左</span>お店や人にものを渡すときは右手で。左手は不浄とされるので注意。</li>
+    </ul>
+
+    <div class="g-sec-title"><span class="g-num">M</span>ざっくりマップ</div>
+    <div class="g-map">
+      <svg viewBox="0 0 360 300" xmlns="http://www.w3.org/2000/svg" font-family="'DM Sans',sans-serif">
+        <defs>
+          <radialGradient id="glow" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#c0392b" stop-opacity=".35"/><stop offset="100%" stop-color="#c0392b" stop-opacity="0"/></radialGradient>
+        </defs>
+        <!-- roads -->
+        <path d="M60 260 L150 170 L200 130 L260 60" stroke="#2c3e50" stroke-width="3" fill="none"/>
+        <path d="M150 170 L90 90" stroke="#2c3e50" stroke-width="2.5" fill="none"/>
+        <path d="M200 130 L300 160" stroke="#2c3e50" stroke-width="2.5" fill="none"/>
+        <path d="M150 170 L210 210" stroke="#2c3e50" stroke-width="2.5" fill="none"/>
+        <!-- Genting (top) -->
+        <circle cx="260" cy="60" r="16" fill="url(#glow)"/><circle cx="260" cy="60" r="5" fill="#e9a09a"/>
+        <text x="260" y="42" fill="#e9a09a" font-size="11" text-anchor="middle" font-weight="700">ゲンティン高原</text>
+        <text x="260" y="80" fill="#9aa5b4" font-size="8.5" text-anchor="middle">チン・スウィー寺院（車1h）</text>
+        <!-- Batu -->
+        <circle cx="90" cy="90" r="16" fill="url(#glow)"/><circle cx="90" cy="90" r="5" fill="#e9a09a"/>
+        <text x="90" y="72" fill="#e9a09a" font-size="11" text-anchor="middle" font-weight="700">バトゥ洞窟</text>
+        <text x="90" y="110" fill="#9aa5b4" font-size="8.5" text-anchor="middle">市内から30分</text>
+        <!-- KLCC / hotel -->
+        <circle cx="200" cy="130" r="20" fill="url(#glow)"/><circle cx="200" cy="130" r="6" fill="#c0392b"/>
+        <text x="215" y="122" fill="#fff" font-size="11" font-weight="700">KLCC・ホテル</text>
+        <text x="215" y="136" fill="#9aa5b4" font-size="8.5">ツインタワー / ibis / 公園</text>
+        <!-- Bukit Bintang -->
+        <circle cx="210" cy="210" r="16" fill="url(#glow)"/><circle cx="210" cy="210" r="5" fill="#e9a09a"/>
+        <text x="228" y="207" fill="#e9a09a" font-size="11" font-weight="700">ブキッ・ビンタン</text>
+        <text x="228" y="221" fill="#9aa5b4" font-size="8.5">アロー市場 / Wet Deck</text>
+        <!-- Chinatown -->
+        <circle cx="150" cy="170" r="16" fill="url(#glow)"/><circle cx="150" cy="170" r="5" fill="#e9a09a"/>
+        <text x="132" y="163" fill="#e9a09a" font-size="11" text-anchor="end" font-weight="700">チャイナタウン</text>
+        <text x="132" y="177" fill="#9aa5b4" font-size="8.5" text-anchor="end">寺院 / 鬼仔巷 / 何九</text>
+        <!-- Perdana / Masjid -->
+        <circle cx="60" cy="260" r="16" fill="url(#glow)"/><circle cx="60" cy="260" r="5" fill="#e9a09a"/>
+        <text x="78" y="255" fill="#e9a09a" font-size="11" font-weight="700">植物園・国立モスク</text>
+        <text x="78" y="269" fill="#9aa5b4" font-size="8.5">Laman Perdana</text>
+        <!-- Thean Hou -->
+        <circle cx="300" cy="160" r="14" fill="url(#glow)"/><circle cx="300" cy="160" r="5" fill="#e9a09a"/>
+        <text x="300" y="145" fill="#e9a09a" font-size="11" text-anchor="middle" font-weight="700">天后宮</text>
+      </svg>
+      <div class="g-map-cap">位置関係のイメージ図（縮尺は正確ではありません）· 市内の移動はGrabで10〜20分</div>
+    </div>
+
+  </div>
+</section>
 
 <!-- DAY 1 -->
 <section class="day-section" id="d1">
